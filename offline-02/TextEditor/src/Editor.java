@@ -1,19 +1,17 @@
-import Environment.AbstractEnvironmentFactory;
-import Environment.CEvinormentFactory;
-import Environment.CPPEnvironmentFactory;
+import Environment.*;
 import Environment.Font.Font;
 import Environment.Parser.Parser;
-import Environment.PythonEnvironmentFactory;
 
 public class Editor {
-    private Editor editor;
+    private static Editor editor;
     private Font font;
     private Parser parser;
+    private String filename;
     private Editor() {
 
     }
 
-    public synchronized Editor getInstance() {
+    public synchronized static Editor getInstance() {
         if(editor == null) {
             editor = new Editor();
         }
@@ -22,15 +20,23 @@ public class Editor {
     }
 
     public void openFile(String filename) {
-        String[] temp = filename.split(".");
+        this.filename = filename;
+        if (filename == null) {
+            font = null;
+            parser = null;
+            return;
+
+        }
+        String[] temp = filename.split("\\.");
         String ext = temp[temp.length-1];
         AbstractEnvironmentFactory environmentFactory = null;
+//        System.out.println("ext "+ext);
         if("c".equalsIgnoreCase(ext)) {
-            environmentFactory = new CEvinormentFactory();
+            environmentFactory = EnvironmentFactoryCreator.getFactory("C");
         } else if("cpp".equalsIgnoreCase(ext)) {
-            environmentFactory = new CPPEnvironmentFactory();
+            environmentFactory = EnvironmentFactoryCreator.getFactory("CPP");
         } else if("py".equalsIgnoreCase(ext)) {
-            environmentFactory = new PythonEnvironmentFactory();
+            environmentFactory = EnvironmentFactoryCreator.getFactory("PYTHON");
         }
         if (environmentFactory == null) {
             font = null;
@@ -40,5 +46,17 @@ public class Editor {
         font = environmentFactory.createFont();
         parser = environmentFactory.createParser();
 
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    public Parser getParser() {
+        return parser;
+    }
+
+    public String getFilename() {
+        return filename;
     }
 }

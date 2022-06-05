@@ -6,6 +6,9 @@ import Environment.Parser.CParser;
 import Environment.Parser.Parser;
 
 public class CEvinormentFactory implements AbstractEnvironmentFactory{
+    CEvinormentFactory(){
+
+    }
     @Override
     public Font createFont() {
         return new CourierNew();

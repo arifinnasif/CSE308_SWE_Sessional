@@ -7,6 +7,9 @@ import Environment.Parser.Parser;
 import Environment.Parser.PythonParser;
 
 public class PythonEnvironmentFactory implements AbstractEnvironmentFactory {
+    PythonEnvironmentFactory() {
+
+    }
     @Override
     public Font createFont() {
         return new Consolas();

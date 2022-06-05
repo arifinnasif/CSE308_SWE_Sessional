@@ -7,6 +7,9 @@ import Environment.Parser.CPPParser;
 import Environment.Parser.Parser;
 
 public class CPPEnvironmentFactory implements AbstractEnvironmentFactory {
+    CPPEnvironmentFactory() {
+
+    }
     @Override
     public Parser createParser() {
         return new CPPParser();
