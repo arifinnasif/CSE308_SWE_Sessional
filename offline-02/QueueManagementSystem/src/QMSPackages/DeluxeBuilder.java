@@ -8,14 +8,18 @@ import Parts.DisplayUnit.Processor.ProcessorFactory;
 import Parts.DisplayUnit.Screen.ScreenFactory;
 
 public class DeluxeBuilder implements PackageBuilder {
-    Deluxe deluxe;
-    DeluxeBuilder() {
-        deluxe = new Deluxe();
+    private int numberOfDisplayUnit;
+    private String communicationModule;
+    private Deluxe deluxe;
+    public DeluxeBuilder(String communicationModule, int numberOfDisplayUnit) {
+        this.deluxe = new Deluxe();
+        this.communicationModule = communicationModule;
+        this.numberOfDisplayUnit = numberOfDisplayUnit;
     }
     @Override
-    public void addCommunicationModule(String communication_module) {
+    public void addCommunicationModule() {
         CommunicationModuleFactory communicationModuleFactory = new CommunicationModuleFactory();
-        deluxe.add(communicationModuleFactory.getCommunicationModule(communication_module));
+        deluxe.add(communicationModuleFactory.getCommunicationModule(communicationModule));
     }
 
     @Override
@@ -32,8 +36,10 @@ public class DeluxeBuilder implements PackageBuilder {
     public void addDisplayUnit() {
         ProcessorFactory processorFactory = new ProcessorFactory();
         ScreenFactory screenFactory = new ScreenFactory();
-        deluxe.add(processorFactory.getProcessor("RaspberryPI"));
-        deluxe.add(screenFactory.getScreen("LCDPanel"));
+        for (int i = 0; i < numberOfDisplayUnit; i++) {
+            deluxe.add(processorFactory.getProcessor("RaspberryPI"));
+            deluxe.add(screenFactory.getScreen("LCDPanel"));
+        }
     }
 
     @Override

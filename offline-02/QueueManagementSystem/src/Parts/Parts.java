@@ -1,12 +1,12 @@
 package Parts;
 
 public abstract class Parts {
-    private int price;
-    int getPrice() {
+    private double price;
+    public double getPrice() {
         return price;
     }
 
-    void setPrice(int arg) {
+    protected void setPrice(double arg) {
         this.price = arg;
 
     }

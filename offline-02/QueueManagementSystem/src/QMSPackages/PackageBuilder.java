@@ -1,9 +1,10 @@
 package QMSPackages;
 
 
+import Parts.CommunicationModule.CommunicationModule;
 
 public interface PackageBuilder {
-    void addCommunicationModule(String communication_module);
+    void addCommunicationModule();
 
     void addApplication();
 

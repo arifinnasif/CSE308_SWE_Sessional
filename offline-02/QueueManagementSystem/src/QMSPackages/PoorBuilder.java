@@ -7,14 +7,19 @@ import Parts.DisplayUnit.Processor.ProcessorFactory;
 import Parts.DisplayUnit.Screen.ScreenFactory;
 
 public class PoorBuilder implements PackageBuilder {
-    Poor poor;
-    PoorBuilder() {
-        poor = new Poor();
+    private int numberOfDisplayUnit;
+    private String communicationModule;
+    private Poor poor;
+    public PoorBuilder(String communicationModule, int numberOfDisplayUnit) {
+        this.poor = new Poor();
+        this.communicationModule = communicationModule;
+        this.numberOfDisplayUnit = numberOfDisplayUnit;
     }
+
     @Override
-    public void addCommunicationModule(String communication_module) {
+    public void addCommunicationModule() {
         CommunicationModuleFactory communicationModuleFactory = new CommunicationModuleFactory();
-        poor.add(communicationModuleFactory.getCommunicationModule(communication_module));
+        poor.add(communicationModuleFactory.getCommunicationModule(communicationModule));
     }
 
     @Override
@@ -31,8 +36,10 @@ public class PoorBuilder implements PackageBuilder {
     public void addDisplayUnit() {
         ProcessorFactory processorFactory = new ProcessorFactory();
         ScreenFactory screenFactory = new ScreenFactory();
-        poor.add(processorFactory.getProcessor("ATMega32"));
-        poor.add(screenFactory.getScreen("LEDMatrix"));
+        for (int i = 0; i < numberOfDisplayUnit; i++) {
+            poor.add(processorFactory.getProcessor("ATMega32"));
+            poor.add(screenFactory.getScreen("LEDMatrix"));
+        }
     }
 
     @Override

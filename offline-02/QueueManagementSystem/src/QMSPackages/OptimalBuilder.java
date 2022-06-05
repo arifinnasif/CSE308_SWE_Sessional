@@ -1,20 +1,25 @@
 package QMSPackages;
 
 import Parts.Application.Application;
+import Parts.CommunicationModule.CommunicationModule;
 import Parts.CommunicationModule.CommunicationModuleFactory;
 import Parts.ControlUnit.ControlUnit;
 import Parts.DisplayUnit.Processor.ProcessorFactory;
 import Parts.DisplayUnit.Screen.ScreenFactory;
 
 public class OptimalBuilder implements PackageBuilder {
-    Optimal optimal;
-    OptimalBuilder() {
-        optimal = new Optimal();
+    private String communicationModule;
+    private int numberOfDisplayUnit;
+    private Optimal optimal;
+    public OptimalBuilder(String communicationModule, int numberOfDisplayUnit) {
+        this.optimal = new Optimal();
+        this.communicationModule = communicationModule;
+        this.numberOfDisplayUnit = numberOfDisplayUnit;
     }
     @Override
-    public void addCommunicationModule(String communication_module) {
+    public void addCommunicationModule() {
         CommunicationModuleFactory communicationModuleFactory = new CommunicationModuleFactory();
-        optimal.add(communicationModuleFactory.getCommunicationModule(communication_module));
+        optimal.add(communicationModuleFactory.getCommunicationModule(communicationModule));
     }
 
     @Override
@@ -31,8 +36,10 @@ public class OptimalBuilder implements PackageBuilder {
     public void addDisplayUnit() {
         ProcessorFactory processorFactory = new ProcessorFactory();
         ScreenFactory screenFactory = new ScreenFactory();
-        optimal.add(processorFactory.getProcessor("ArduinoMega"));
-        optimal.add(screenFactory.getScreen("LEDMatrix"));
+        for (int i = 0; i < numberOfDisplayUnit; i++) {
+            optimal.add(processorFactory.getProcessor("ArduinoMega"));
+            optimal.add(screenFactory.getScreen("LEDMatrix"));
+        }
     }
 
     @Override
