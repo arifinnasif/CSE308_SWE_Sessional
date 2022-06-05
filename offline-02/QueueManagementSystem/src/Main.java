@@ -24,7 +24,7 @@ public class Main {
                 } else continue;
                 packageDirector = new PackageDirector();
                 packageDirector.createPackage(packageBuilder);
-                System.out.println("Bought package "+cmd[1].toUpperCase(Locale.ROOT));
+                System.out.println("Bought package "+packageBuilder.getPackage().getName().toUpperCase(Locale.ROOT));
                 System.out.println("Total cost : "+packageBuilder.getPackage().getTotalCost());
                 System.out.println("Yearly comm cost : "+packageBuilder.getPackage().getYearlyCommCost());
                 System.out.println("Parts List");
