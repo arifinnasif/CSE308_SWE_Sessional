@@ -5,76 +5,88 @@ import FoodItems.Burger.Burger;
 import FoodItems.FactoryProducer;
 import FoodItems.Toppings.CheesyBurgerDecorator;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        AbstractFactory burgerFactory = FactoryProducer.getFactory("BURGER");
-        Burger borgir1 = burgerFactory.getBurger("BEEF");
-
-        AbstractFactory toppingsFactory = FactoryProducer.getFactory("TOPPINGS");
-        borgir1 = toppingsFactory.getToppingsDecorator("CHEESE", borgir1);
-
-        AbstractFactory appetizerFactory = FactoryProducer.getFactory("APPETIZER");
-        borgir1 = appetizerFactory.getAppetizerDecorator("FRENCH_FRIES", borgir1);
-
-//        Burger borgir = new BeefBurger();
-//        borgir = new CheesyBurgerDecorator(borgir);
-//        borgir = new BurgerWithFrenchFriesDecorator(borgir);
-
-        // show
-        System.out.println(borgir1.getDescription());
-        System.out.println(borgir1.getPrice());
+        // print options
+        System.out.println("1. Beef burger with French fry and cheese");
+        System.out.println("2. Veggi burger with onion rings and Bottle of Water");
+        System.out.println("3. A combo meal with Veggi burger, French Fry and Coke");
+        System.out.println("4. A combo meal with Veggi burger, Onion Rings, Coffee and Water");
+        System.out.println("5. A Beef burger only");
+        System.out.println("0. EXIT");
 
 
-        burgerFactory = FactoryProducer.getFactory("BURGER");
-        Burger borgir2 = burgerFactory.getBurger("VEGGI");
+        Scanner sc = new Scanner(System.in);
+        int ch = 0;
+        while(true) {
+            System.out.print("> ");
+            ch = sc.nextInt();
 
-        appetizerFactory = FactoryProducer.getFactory("APPETIZER");
-        borgir2 = appetizerFactory.getAppetizerDecorator("ONION_RINGS", borgir2);
+            if(ch == 0) {
+                break;
+            }
 
-        AbstractFactory drinksFactory = FactoryProducer.getFactory("DRINKS");
-        borgir2 = drinksFactory.getDrinksDecorator("WATER",  borgir2);
+            if(ch < 1 || ch > 5) {
+                System.out.println("incorrect params");
+                continue;
+            }
 
+            Burger borgir1 = null;
+            AbstractFactory burgerFactory;
 
-        // show
-        System.out.println(borgir2.getDescription());
-        System.out.println(borgir2.getPrice());
+            if(ch==1) {
+                burgerFactory = FactoryProducer.getFactory("BURGER");
+                borgir1 = burgerFactory.getBurger("BEEF");
 
+                AbstractFactory appetizerFactory = FactoryProducer.getFactory("APPETIZER");
+                borgir1 = appetizerFactory.getAppetizerDecorator("FRENCH_FRIES", borgir1);
 
-        burgerFactory = FactoryProducer.getFactory("BURGER");
-        Burger borgir3 = burgerFactory.getBurger("VEGGI");
-
-        appetizerFactory = FactoryProducer.getFactory("APPETIZER");
-        borgir3 = appetizerFactory.getAppetizerDecorator("FRENCH_FRIES", borgir3);
-
-        drinksFactory = FactoryProducer.getFactory("DRINKS");
-        borgir3 = drinksFactory.getDrinksDecorator("COKE",  borgir3);
-
-
-        // show
-        System.out.println(borgir3.getDescription());
-        System.out.println(borgir3.getPrice());
-
-
-        burgerFactory = FactoryProducer.getFactory("BURGER");
-        Burger borgir4 = burgerFactory.getBurger("VEGGI");
-
-        appetizerFactory = FactoryProducer.getFactory("APPETIZER");
-        borgir4 = appetizerFactory.getAppetizerDecorator("ONION_RINGS", borgir4);
-
-        drinksFactory = FactoryProducer.getFactory("DRINKS");
-        borgir4 = drinksFactory.getDrinksDecorator("COFFEE",  borgir4);
-        borgir4 = drinksFactory.getDrinksDecorator("WATER",  borgir4);
-
-        // show
-        System.out.println(borgir4.getDescription());
-        System.out.println(borgir4.getPrice());
+                AbstractFactory toppingsFactory = FactoryProducer.getFactory("TOPPINGS");
+                borgir1 = toppingsFactory.getToppingsDecorator("CHEESE", borgir1);
 
 
-        burgerFactory = FactoryProducer.getFactory("BURGER");
-        Burger borgir5 = burgerFactory.getBurger("BEEF");
+            } else if (ch==2) {
+                burgerFactory = FactoryProducer.getFactory("BURGER");
+                borgir1 = burgerFactory.getBurger("VEGGI");
 
-        // show
-        System.out.println(borgir5.getDescription());
-        System.out.println(borgir5.getPrice());
+                AbstractFactory appetizerFactory = FactoryProducer.getFactory("APPETIZER");
+                borgir1 = appetizerFactory.getAppetizerDecorator("ONION_RINGS", borgir1);
+
+                AbstractFactory drinksFactory = FactoryProducer.getFactory("DRINKS");
+                borgir1 = drinksFactory.getDrinksDecorator("WATER", borgir1);
+            } else if (ch==3) {
+                burgerFactory = FactoryProducer.getFactory("BURGER");
+                borgir1 = burgerFactory.getBurger("VEGGI");
+
+                AbstractFactory appetizerFactory = FactoryProducer.getFactory("APPETIZER");
+                borgir1 = appetizerFactory.getAppetizerDecorator("FRENCH_FRIES", borgir1);
+
+                AbstractFactory drinksFactory = FactoryProducer.getFactory("DRINKS");
+                borgir1 = drinksFactory.getDrinksDecorator("COKE", borgir1);
+            } else if (ch==4) {
+                burgerFactory = FactoryProducer.getFactory("BURGER");
+                borgir1 = burgerFactory.getBurger("VEGGI");
+
+                AbstractFactory appetizerFactory = FactoryProducer.getFactory("APPETIZER");
+                borgir1 = appetizerFactory.getAppetizerDecorator("ONION_RINGS", borgir1);
+
+                AbstractFactory drinksFactory = FactoryProducer.getFactory("DRINKS");
+                borgir1 = drinksFactory.getDrinksDecorator("COFFEE", borgir1);
+
+                borgir1 = drinksFactory.getDrinksDecorator("WATER", borgir1);
+            } else if (ch == 5) {
+                burgerFactory = FactoryProducer.getFactory("BURGER");
+                borgir1 = burgerFactory.getBurger("BEEF");
+            }
+
+            // show
+            System.out.println(borgir1.getDescription());
+            System.out.println(borgir1.getPrice());
+        }
+
+
+
     }
 }
