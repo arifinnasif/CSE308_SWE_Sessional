@@ -140,6 +140,10 @@ public class GraderTestGenerator {
         return Double.toString(800.0);
     }
 
+    public static String getTooLargeDouble() {
+        return Double.toString(Double.MAX_VALUE);
+    }
+
     public static String getNonNumber() {
         return "abc";
     }
